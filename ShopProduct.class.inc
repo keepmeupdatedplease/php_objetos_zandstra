@@ -20,7 +20,11 @@
 		}
 		
 
-		public function
+		function getSummaryLine() {
+			$base = "{$this->title} ({$this->producerMainName}, ";
+			$base .= "{$this->producerFirstName})";
+			return $base;
+		}
 
 
 	}
@@ -40,10 +44,58 @@
 			return $this->playLength;
 		}
 		
+		
+		function getSummaryLine() {
+			$base = parent::getSummaryLine();
+			$base .= ": play length - {$this->playLength}";
+			return $base;
+		}
+		
 	}
 		
+
+	class BookProduct extends ShopProduct {
+		public $numPages;
 		
 		
+		function __construct($title, $producerFirstName, $producerMainName, $price, $numPages) {
+			$this->numPages = $numPages;
+			parent::__construct($title, $producerFirstName, $producerMainName, $price);
+		}
+		
+		function getSummaryLine() {
+			$base = parent::getSummaryLine();
+			$base .= ": Page count - {$this->numPages}";
+			return $base;
+		}
+		
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	
 ?>
