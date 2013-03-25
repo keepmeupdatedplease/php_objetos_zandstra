@@ -1,23 +1,45 @@
 <?php
 	require 'ShopProduct.class.inc';
 	
-	$product1 = new ShopProduct("La invencion de Morel", "Adolfo Bioy", "Casares", 9.99);
-	
-	print "author: " . $product1->getProducer() . "\n";
 	
 
+	$pructo = new ShopProduct("Rayuela", "Pedro", "Cortaza", "$9.99");
+	
+	$cd = new CdProduct("Los twists", "Los", "Twists", "10.99", "1:20:00");
+
+	
+	print $cd->getPlayLength();
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+/**----
+
+
+
+	print "author: " . $product1->getProducer() . "\n";
+
+	echo "<tt><pre>". var_export($product1, TRUE) ."</pre></tt>"; 
+
+
+$product1 = new ShopProduct("La invencion de Morel", "Adolfo Bioy", "Casares", 9.99);
+
+
+$writer = new ShopProductWriter();
+$writer->write($product1);
+
+**/
 
 ?>
 
-
-<!-- 
-
-
-
-
-echo "<tt><pre>". var_export($product1, TRUE) ."</pre></tt>"; 
-
-
-
-
--->

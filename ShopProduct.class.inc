@@ -15,17 +15,35 @@
 		}
 		
 		
-		public function getProducer() {
-			
+		function getProducer() {
 			return "{$this->producerFirstName}" . " {$this->producerMainName}";
 		}
 		
-		
-		
-		
-		
-		
-	
+
+		public function
+
+
 	}
+
+
+	
+	class CdProduct extends ShopProduct {
+		public $playLength;
+		
+		
+		function __construct($title, $producerFirstName, $producerMainName, $price, $playLength) {
+			$this->playLength = $playLength;
+			parent::__construct($title, $producerFirstName, $producerMainName, $price);
+		}
+		
+		function getPlayLength() {
+			return $this->playLength;
+		}
+		
+	}
+		
+		
+		
+
 	
 ?>
