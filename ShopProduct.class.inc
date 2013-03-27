@@ -1,32 +1,114 @@
 <?php
+	require_once("DB.php");
 
 	class ShopProduct {
-		public $title = "default product";
-		public $producerFirstName = "First name";
-		public $producerMainName = "Main name";
-		public $price = 0;
+		private $title = "default product";
+		private $producerFirstName = "First name";
+		private $producerMainName = "Main name";
+		private $discount = 0;
+		protected $price = 0;
+		private $id=0;
 		
 		
-		function __construct ($title, $producerFirstName, $producerMainName, $price) {
+		function __construct ($title, $producerFirstName, $producerMainName, $price, $discount) {
 			$this->title = $title;
 			$this->producerFirstName = $producerFirstName;
 			$this->producerMainName = $producerMainName;
 			$this->price = $price;
+			$this->discount= $discount;
 		}
 		
 		
-		function getProducer() {
+		public function getProducer() {
 			return "{$this->producerFirstName}" . " {$this->producerMainName}";
 		}
 		
 
-		function getSummaryLine() {
+		public function getSummaryLine() {
 			$base = "{$this->title} ({$this->producerMainName}, ";
 			$base .= "{$this->producerFirstName})";
 			return $base;
 		}
+		
+		public function getPrice() {
+			return $this->price - $this->discount;
+		}
+		
+		public function setDiscount ($discount) {
+			$this->discount = $discount;
+		}
 
+		public function getDiscount () {
+			return $this->discount;
+		}
+		
+		
+		public function getTitle(){
+			return $this->title;
+		}
+		
+		
+		public function setID($id) {
+			$this->id = $id;
+		}
+		
+		
+		public static function getInstance ($id, DB_common $db) {
+			$query = "SELECT * FROM products ";
+			$query .= "WHERE id='".$id."' ";
+			
+			$query_result = $db->query($query);
+			
+			if (DB::isError($query_result)) {
+				die($query_result->getMessage());
+			}
+			
+			$row = $query_result->fetchRow(DB_FETCHMODE_ASSOC);
+			if (empty($row)) {return NULL; }
 
+			switch($row['type']) {
+				case "book":
+					$product = new BookProduct(
+						$row['title'],
+						$row['firstname'],
+						$row['mainname'],
+						$row['price'],
+						NULL,
+						$row['numpages']
+					);
+					break;
+					
+				case "cd":
+					$product = new CdProduct(
+						$row['title'],
+						$row['firstname'],
+						$row['mainname'],
+						$row['price'],
+						NULL,
+						$row['playlength']
+					);
+					break;
+					
+				default:
+					$product = new ShopProduct(
+						$row['title'],
+						$row['firstname'],
+						$row['mainname'],
+						$row['price'],
+						NULL
+					);
+					break;
+			}
+			
+			$product->setId($row['id']);
+			$product->setDiscount($row['discount']);
+			
+			return $product;
+			
+			
+		}
+		
+		
 	}
 
 
@@ -35,9 +117,9 @@
 		public $playLength;
 		
 		
-		function __construct($title, $producerFirstName, $producerMainName, $price, $playLength) {
+		function __construct($title, $producerFirstName, $producerMainName, $price, $discount, $playLength) {
 			$this->playLength = $playLength;
-			parent::__construct($title, $producerFirstName, $producerMainName, $price);
+			parent::__construct($title, $producerFirstName, $producerMainName, $price, $discount);
 		}
 		
 		function getPlayLength() {
@@ -58,9 +140,9 @@
 		public $numPages;
 		
 		
-		function __construct($title, $producerFirstName, $producerMainName, $price, $numPages) {
+		function __construct($title, $producerFirstName, $producerMainName, $price, $discount, $numPages) {
 			$this->numPages = $numPages;
-			parent::__construct($title, $producerFirstName, $producerMainName, $price);
+			parent::__construct($title, $producerFirstName, $producerMainName, $price, $discount);
 		}
 		
 		function getSummaryLine() {
