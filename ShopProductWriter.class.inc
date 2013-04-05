@@ -1,24 +1,61 @@
 <?php
-	class ShopProductWriter {
-		public $products = array();
+	abstract class ShopProductWriter {
+		protected $products = array();
 		
 		public function addProduct (ShopProduct $shopProduct) {
 			$this->products[] = $shopProduct;
 		}
 
-		public function write() {
-			$base = " ";
-			foreach ($this->products as $shopProduct) {
-				$base .= $shopProduct->getTitle() . ": ";
-				$base .= $shopProduct->getProducer();
-				$base .= $shopProduct->getPrice();
-			}
-			print $base;
-
-		}
+		abstract public function write();
 
 
 	}
+	
+	
+
+	class XmlProductWriter extends ShopProductWriter {
+		
+		public function write() {
+			$str = "<products>\n";
+				foreach ($this->products as $shopProduct) {
+					$str .= "\t<product title=\"{$shopProduct->getTitle()}\">\n";
+					$str .= "\t\t<summary>\n";
+					$str .= "\t\t{$shopProduct->getSummaryLine()}\n";
+					$str .= "\t\t</summary>\n";
+					$str .= "\t</product>\n";
+				}
+				$str .= "</products>\n";
+				print $str;
+		}
+	}
+	
+	
+	class TextProductWriter extends ShopProductWriter {
+		public function write() {
+			$str = "PRODUCTS:\n";
+			foreach ($this->products as $shopProduct) {
+				$str .= $shopProduct->getSummaryLine(). "\n";
+			}
+			print $str;
+		}
+	}
 
 	
+/*
+
+public function write() {
+	$base = " ";
+	foreach ($this->products as $shopProduct) {
+		$base .= $shopProduct->getTitle() . ": ";
+		$base .= $shopProduct->getProducer();
+		$base .= $shopProduct->getPrice();
+	}
+	print $base;
+
+}
+
+
+
+*/
+
 ?>

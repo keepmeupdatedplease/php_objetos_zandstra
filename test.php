@@ -7,10 +7,10 @@
 	$db = DB::connect("mysql://root:root@localhost:8889/store");
 	$obj = ShopProduct::getInstance(4, $db);
 	
+	$writer = new XmlProductWriter();
+	$writer->addProduct($obj);
+	$writer->write();
 	
-	
-
-
 
 
 	
@@ -29,7 +29,7 @@ $libro = new BookProduct ("La invencion de Morel", "Adolfo", "Bioy Casares", "9.
 $product1 = new ShopProduct("La invencion de Morel", "Adolfo Bioy", "Casares", 9.99);
 
 
-$writer = new ShopProductWriter();
+$writer = new ShopProductWriter(); // ahora que es abstracto no es posible instanciarlo
 $writer->write($product1);
 
 
