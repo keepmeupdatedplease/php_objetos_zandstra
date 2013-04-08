@@ -1,7 +1,8 @@
 <?php
 	require_once("DB.php");
+	require_once('Chargeable.class.inc');
 
-	class ShopProduct {
+	class ShopProduct implements Chargeable {
 		private $title = "default product";
 		private $producerFirstName = "First name";
 		private $producerMainName = "Main name";
