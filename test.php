@@ -1,6 +1,8 @@
 <?php
 	require 'ShopProduct.class.inc';
 	require 'ShopProductWriter.class.inc';
+	require 'TextProductWriter.class.inc';
+	require 'XmlProductWriter.class.inc';
 	require_once("DB.php");	
 	
 	
