@@ -4,6 +4,11 @@
 	require_once 'Products/TextProductWriter.class.inc';
 	require_once 'Products/XmlProductWriter.class.inc';
 	require_once("DB.php");	
+
+
+	function __autoload ($classname) {
+		require_once($classname);
+	}
 	
 	
 	$db = DB::connect("mysql://root:root@localhost:8889/store");
