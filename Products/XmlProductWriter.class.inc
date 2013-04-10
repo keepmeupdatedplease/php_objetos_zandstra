@@ -1,6 +1,6 @@
 <?php
 
-class XmlProductWriter extends ShopProductWriter {
+class Products_XmlProductWriter extends Products_ShopProductWriter {
 	
 	public function write() {
 		$str = "<products>\n";

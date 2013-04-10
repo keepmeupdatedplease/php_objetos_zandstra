@@ -1,15 +1,15 @@
 <?php
-	require 'ShopProduct.class.inc';
-	require 'ShopProductWriter.class.inc';
-	require 'TextProductWriter.class.inc';
-	require 'XmlProductWriter.class.inc';
+	require_once 'Products/ShopProduct.class.inc';
+	require_once 'Products/ShopProductWriter.class.inc';
+	require_once 'Products/TextProductWriter.class.inc';
+	require_once 'Products/XmlProductWriter.class.inc';
 	require_once("DB.php");	
 	
 	
 	$db = DB::connect("mysql://root:root@localhost:8889/store");
-	$obj = ShopProduct::getInstance(4, $db);
+	$obj = Products_ShopProduct::getInstance(4, $db);
 	
-	$writer = new XmlProductWriter();
+	$writer = new Products_XmlProductWriter();
 	$writer->addProduct($obj);
 	$writer->write();
 	

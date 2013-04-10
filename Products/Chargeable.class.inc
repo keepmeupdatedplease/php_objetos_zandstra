@@ -1,6 +1,6 @@
 <?php
 	
-	Interface Chargeable {
+	Interface Products_Chargeable {
 		public function getPrice();
 	}
 

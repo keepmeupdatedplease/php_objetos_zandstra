@@ -1,8 +1,8 @@
 <?php
-	abstract class ShopProductWriter {
+	abstract class Products_ShopProductWriter {
 		protected $products = array();
 		
-		public function addProduct (ShopProduct $shopProduct) {
+		public function addProduct (Products_ShopProduct $shopProduct) {
 			$this->products[] = $shopProduct;
 		}
 

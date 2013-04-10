@@ -1,8 +1,8 @@
 <?php
-	require_once("DB.php");
+	require_once('DB.php');
 	require_once('Chargeable.class.inc');
 
-	class ShopProduct implements Chargeable {
+	class Products_ShopProduct implements Products_Chargeable {
 		private $title = "default product";
 		private $producerFirstName = "First name";
 		private $producerMainName = "Main name";
@@ -69,7 +69,7 @@
 
 			switch($row['type']) {
 				case "book":
-					$product = new BookProduct(
+					$product = new Products_BookProduct(
 						$row['title'],
 						$row['firstname'],
 						$row['mainname'],
@@ -80,7 +80,7 @@
 					break;
 					
 				case "cd":
-					$product = new CdProduct(
+					$product = new Products_CdProduct(
 						$row['title'],
 						$row['firstname'],
 						$row['mainname'],
@@ -91,7 +91,7 @@
 					break;
 					
 				default:
-					$product = new ShopProduct(
+					$product = new Products_ShopProduct(
 						$row['title'],
 						$row['firstname'],
 						$row['mainname'],
@@ -114,7 +114,7 @@
 
 
 	
-	class CdProduct extends ShopProduct {
+	class Products_CdProduct extends Products_ShopProduct {
 		public $playLength;
 		
 		
@@ -137,7 +137,7 @@
 	}
 		
 
-	class BookProduct extends ShopProduct {
+	class Products_BookProduct extends Products_ShopProduct {
 		public $numPages;
 		
 		
