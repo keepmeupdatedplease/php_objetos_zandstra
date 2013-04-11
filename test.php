@@ -2,19 +2,24 @@
 	require_once 'Products/ShopProduct.class.inc';
 	require_once 'Products/ShopProductWriter.class.inc';
 	require_once 'Products/TextProductWriter.class.inc';
-	require_once 'Products/XmlProductWriter.class.inc';
+//	require_once 'Products/XmlProductWriter.class.inc'; // comento esta linea a propsito para hacer uso de __autoload()
 	require_once("DB.php");	
 
 
 	function __autoload ($classname) {
-		require_once($classname);
+		$path = str_replace('_', DIRECTORY_SEPARATOR, $classname);
+		
+		$path = "./".$path.".class.inc";
+		require_once $path;
 	}
-	
 	
 	$db = DB::connect("mysql://root:root@localhost:8889/store");
 	$obj = Products_ShopProduct::getInstance(4, $db);
 	
 	$writer = new Products_XmlProductWriter();
+
+
+	
 	$writer->addProduct($obj);
 	$writer->write();
 	
