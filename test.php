@@ -25,6 +25,43 @@
 	
 
 
+	$prod_class = new ReflectionClass('Products_XmlProductWriter');
+	Reflection::export($prod_class);
+
+
+
+	function classData(ReflectionClass $class) {
+		$details = "";
+		$name = $class->getName();
+
+		if ($class->isUserDefined()) {
+			$details .= "$name is user defined\n";
+		}
+
+		if ($class->isInternal()) {
+			$details .= "$name is built-in\n";
+		}
+
+		if ($class->isInterface()) {
+			$details .= "$name is interface\n";
+		}
+
+		if ($class->isAbstract()) {
+			$details .= "$name is abstract\n";
+		}
+
+		if ($class->isFinal()) {
+			$details .= "$name is final\n";
+		}
+
+		if ($class->isInstantiable()) {
+			$details .= "$name can be instantiated\n";
+		}else{
+			$details .= "$name can not be instantiated\n";	
+		}
+		return $details;
+	}
+
 	
 	
 /**----
